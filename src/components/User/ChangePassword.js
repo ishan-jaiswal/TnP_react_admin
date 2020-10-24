@@ -4,7 +4,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { Button, Grid } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
-import useLocalStorage from '../useLocalStorage'
+//import useLocalStorage from '../useLocalStorage'
 import CloseIcon from '@material-ui/icons/Close';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -20,18 +20,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MyAccount() {
     const classes = useStyles();
-    const [user,setUser]=useLocalStorage('user',{email:'',password:''})
-    const [password,setPassword]=React.useState({key:user.password,showPassword:false})
+    //const [username,setUsername]=useLocalStorage('username','')
+    const [pwd,setPwd]=React.useState('');
+    const [showPassword,setShowPassword]=React.useState(false);
     const [open, setOpen] = React.useState(false);
     // const [email,setEmail]=React.useState('1705500@kiit.ac.in')
     const handleClickShowPassword = () => {
-        setPassword({ ...password, showPassword: !password.showPassword });
+        setShowPassword(!showPassword)
       };
     const handleChangePassword=()=>{      
-      if (password.key!==user.password){
-        setUser({...user,password:password.key})
-        setOpen(true)
-      }
+      
     }
   
     const handleClose = (event, reason) => {
@@ -53,9 +51,10 @@ export default function MyAccount() {
                     <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>                            
                     <OutlinedInput
                         id="outlined-adornment-password"
-                        type={password.showPassword ? 'text' : 'password'}                        
-                        value={password.key}
-                        onChange={e=>setPassword({...password,key:e.target.value})}
+                        type={showPassword ? 'text' : 'password'}                        
+                        value={pwd}
+                        error={pwd.length<4}
+                        onChange={e=>setPwd(e.target.value)}
                         endAdornment={
                         <InputAdornment position="end">
                             <IconButton
@@ -63,7 +62,7 @@ export default function MyAccount() {
                             onClick={handleClickShowPassword}                            
                             edge="end"
                             >
-                            {password.showPassword ? <Visibility /> : <VisibilityOff />}
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
                             </IconButton>
                         </InputAdornment>
                         }                        

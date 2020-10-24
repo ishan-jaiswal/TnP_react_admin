@@ -1,4 +1,4 @@
-import React, {  } from 'react'
+import React from 'react'
 import { Admin, Resource,AppBar,Layout } from 'react-admin'
 import jsonServerProvider from 'ra-data-json-server'
 import PostList from './components/Posts/PostList'
@@ -20,9 +20,11 @@ function App() {
   // eslint-disable-next-line
   const [permissions,setPermissions]=React.useState('student');
   const [toggle,setToggle]=useLocalStorage('toggle',false)
-  // React.useEffect(() => {            
-  // }, []);
-
+  // eslint-disable-next-line
+  const [email,setEmail]=useLocalStorage('email','');
+  React.useEffect(() => {            
+      setEmail('1705500@kiit.ac.in')
+  }, [setEmail]);
   const theme = createMuiTheme({
     palette: {
       type: toggle===true?'dark':'light' 
@@ -53,7 +55,7 @@ function App() {
           />:null,
           permissions==='student'?<Resource
           options={{ label: 'Jobs' }}
-          name='comments'        
+          name='users'        
           list={UserList}        
           show={ShowUser}
           /> :null,          

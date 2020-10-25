@@ -3,15 +3,12 @@ import { Edit, SimpleForm, TextInput, DateInput,FileInput,FileField } from 'reac
 
 const StudentEdit = (props) => {
   return (
-    <Edit title='Edit Post' {...props}>
+    <Edit title='Edit Student' {...props}>
       <SimpleForm>
-        <TextInput disabled source='id' />
-        <TextInput source='title' />      
-        <TextInput multiline source='body' />
-        <DateInput label='Published' source='publishedAt' />
-        <DateInput label='Expiry Date' source='expiryAt' />
-        <TextInput label='URL' source='url' />
-        <FileInput source="files" label="Related files" accept="application/pdf">
+        <TextInput  label='Roll No.' source='id' />
+        <TextInput label='Name' source='title' />              
+        <DateInput label='Date of Birth' source='dob' />        
+        <FileInput source="files" label="Related files" accept="application/pdf" maxSize={2000000}>
             <FileField source="src" title="title" />
         </FileInput>      
       </SimpleForm>

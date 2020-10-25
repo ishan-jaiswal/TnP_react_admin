@@ -1,11 +1,9 @@
 import React from 'react'
-//import {SimpleForm, TextInput} from 'react-admin'
 import { makeStyles } from '@material-ui/core/styles';
-// import {TextValidator} from 'react-material-ui-form-validator';
 import TextField from '@material-ui/core/TextField';
 import { Button, Grid } from '@material-ui/core';
-import useLocalStorage from '../useLocalStorage';
-import ChangePassword from './ChangePassword'
+import useLocalStorage from '../../useLocalStorage';
+// import ChangePassword from './ChangePassword'
 import {DropzoneDialog} from 'material-ui-dropzone'
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,19 +14,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function EditInfo() {
     const classes = useStyles();
-    const [details,setDetails]=useLocalStorage('details',{first:'Ishan',last:'Jaiswal',phone:7059078173,alt_email:'devhjaiswal@gmail.com',class_10_per:84.4,class_10_year:2015,class_12_per:92,class_12_year:2017,backlogs:0,pass_year:2021,cgpa:9.15})
+    const [details,setDetails]=useLocalStorage('details','')
      // eslint-disable-next-line
-    const [ email,setEmail ]=useLocalStorage('email','');
+    const [ email,setEmail ]=useLocalStorage('username','');
      // eslint-disable-next-line   
-    const [files,setFiles]=React.useState(null)  
-    const [change,setChange]=React.useState(false)
+    const [files,setFiles]=React.useState(null)      
     const [opencv,setOpencv]=React.useState(false)
+    // eslint-disable-next-line
+    const [edit,setEdit]=useLocalStorage('edit',false);
+    React.useEffect(() => {            
+    }, [])
     const handleSubmit=()=>{      
       if(details.first===''||details.last===''||ValidateEmail(details.alt_email)||details.class_10_per<=30 || details.class_10_per>=100||details.class_10_year<2015 || details.class_10_year>=2020||details.class_12_per<=30 || details.class_12_per>=100||details.class_12_year<2015 || details.class_12_year>=2020||details.cgpa<3 ||details.cgpa>=10||details.backlogs<0 ||details.backlogs>8||details.pass_year<2020 || details.pass_year>2022){
         console.log('error');
       }
       else{
         console.log('accepted');
+        setEdit(false)
       }
     }
     const ValidateEmail=(mail)=>{
@@ -84,10 +86,10 @@ export default function EditInfo() {
                 </Grid>
                 <Grid item xs={12} >
                   <Button onClick={handleUploadOpen} style={{marginLeft:'1vh'}} variant='contained'>Upload Resume</Button>
-                  <Button variant='outlined' style={{marginLeft:'2vh'}} color='primary' onClick={e=>setChange(!change)} >Change Password</Button>
-                  {change &&(<ChangePassword />)}
+                  {/* <Button variant='outlined' style={{marginLeft:'2vh'}} color='primary' onClick={e=>setChange(!change)} >Change Password</Button> */}
+                  {/* {change===true &&(<ChangePassword />)} */}
                 </Grid>
-                <Grid item style={{margin:'2vh'}}>
+                <Grid item style={{margin:'1vh'}}>
                   <Button onClick={handleSubmit} variant='contained'>Save Changes</Button>                  
                 </Grid>
                 <DropzoneDialog
@@ -95,8 +97,8 @@ export default function EditInfo() {
                     onSave={e=>{setFiles(e);setOpencv(false)}}
                     acceptedFiles={['application/pdf']}
                     showPreviews={true}                 
-                    filesLimit='1'
-                    maxFileSize={5000000}
+                    filesLimit={1}
+                    maxFileSize={2000000}
                     onClose={handleUploadClose}
                 />                              
             </Grid>

@@ -1,19 +1,20 @@
 import React from 'react';
-import{ List,Datagrid,TextField,EditButton,DeleteButton,TextInput,Filter } from 'react-admin'
+import{ List,Datagrid,TextField,TextInput,Filter, DateField } from 'react-admin'
 const PostFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="Search by ID" source="id"  />
-        <TextInput label="Search by Title" source="title"  />
+        <TextInput label="Search by Roll No." source="id"  />
+        <TextInput label="Search by Name" source="title"  />
     </Filter>
   )
 const PostList = (props) => {
     return (
-      <List title="All Posts" {...props} filters={<PostFilter />}>        
+      <List title="All Students" {...props} filters={<PostFilter />}>        
         <Datagrid>
-          <TextField source='id' />
-          <TextField source='title'/>          
-          <EditButton basePath='/posts' />
-          <DeleteButton basePath='/posts' />
+          <TextField label='Roll No.' source='id' />
+          <TextField label='Name' source='title'/>          
+          <DateField label='Date of Birth' source='dob' />
+          <TextField label='CGPA' source='cgpa' />
+          {/* <EditButton basePath='/posts' />           */}
         </Datagrid>
       </List>
     )

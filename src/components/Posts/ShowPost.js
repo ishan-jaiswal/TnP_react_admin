@@ -2,16 +2,16 @@ import React from 'react'
 import { Resource } from 'react-admin'
 import StudentList from '../Student/StudentList'
 import StudentCreate from '../Student/StudentCreate'
-import StudentEdit from '../Student/StudentEdit'
+// import StudentEdit from '../Student/StudentEdit'
 function ShowPost(props) {
     return (
         <div>            
-            <Resource name='posts'
+            <Resource name='posts'                
+                options={{ label: 'Student' }}
+                // edit={StudentEdit}
+                list={StudentList}                
+                create={StudentCreate}                
                 {...props}
-                options={{ label: 'User' }}
-                list={StudentList}
-                create={StudentCreate}
-                edit={StudentEdit}        
             />                        
         </div>
     )

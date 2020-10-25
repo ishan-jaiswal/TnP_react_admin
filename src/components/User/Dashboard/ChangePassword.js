@@ -4,7 +4,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { Button, Grid } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
-//import useLocalStorage from '../useLocalStorage'
+import useLocalStorage from '../../useLocalStorage';
 import CloseIcon from '@material-ui/icons/Close';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -19,19 +19,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MyAccount() {
-    const classes = useStyles();
-    //const [username,setUsername]=useLocalStorage('username','')
+    const classes = useStyles();    
     const [pwd,setPwd]=React.useState('');
+    // eslint-disable-next-line
+    const [change,setChange]=useLocalStorage('change',false);
     const [showPassword,setShowPassword]=React.useState(false);
-    const [open, setOpen] = React.useState(false);
-    // const [email,setEmail]=React.useState('1705500@kiit.ac.in')
+    const [open, setOpen] = React.useState(false);    
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword)
       };
     const handleChangePassword=()=>{      
-      
-    }
-  
+      setChange(false)
+    }    
     const handleClose = (event, reason) => {
       if (reason === 'clickaway') {
         return;
@@ -68,7 +67,7 @@ export default function MyAccount() {
                         }                        
                     />
                     </form>                    
-                    <Button variant='contained' style={{marginLeft:'1vh'}} onClick={handleChangePassword}>Change Password</Button>
+                    <Button variant='contained' style={{margin:'1vh'}} onClick={handleChangePassword}>Change Password</Button>
                 </Grid>                
             </Grid>      
             <Snackbar

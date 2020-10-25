@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { useListContext, List, TextField, DateField, ShowButton, UrlField,Filter,SelectInput } from 'react-admin';
-import { Card, CardActions, CardContent, CardHeader, Avatar } from '@material-ui/core';
-import PersonIcon from '@material-ui/icons/Person';
+import { useListContext, List, TextField, DateField, ShowButton,Filter,SelectInput } from 'react-admin';
+import { Card, CardActions, CardContent, CardHeader,} from '@material-ui/core';
 import useLocalStorage from '../useLocalStorage'
 const cardStyle = {
     width: '167vh',    
-    margin: '0.5em',    
-    verticalAlign: 'top'
+    margin: '0.5vh',    
+    verticalAlign: ''
 };
 const PostFilter = (props) => (
     <Filter {...props}>
@@ -16,24 +15,25 @@ const PostFilter = (props) => (
           ]} />
     </Filter>
   )
-const CommentGrid = () => {
+const UserGrid = () => {
     const { ids, data, basePath } = useListContext();
     // eslint-disable-next-line
     const [name,setName]=useLocalStorage('name','');    
     return (
-        <div style={{ margin: '1em' }}>            
+        <div style={{ margin: '1vh' }}>            
         {ids.map(id =>
             <Card key={id} style={cardStyle}>
                 <CardHeader
                     title={<TextField record={data[id]} source="name" />}
-                    subheader={<DateField record={data[id]} source="created_at" />}
-                    avatar={<Avatar icon={<PersonIcon />} />}
+                    subheader={<DateField record={data[id]} source="name" />}                    
                 />
                 <CardContent>
-                    <TextField record={data[id]} source="body" />
-                </CardContent>
-                <CardContent>                    
-                    <UrlField record={data[id]} source='name'/>
+                    Body<br/>
+                    <TextField label='Body' record={data[id]} source="name" />
+                </CardContent>                
+                <CardContent>    
+                    Expiry Date <br/>                
+                    <DateField  label='URL' record={data[id]} source='name'/>
                 </CardContent>
                 <CardActions style={{ textAlign: 'right' }}>
                     <ShowButton resource="comments" basePath={basePath} record={data[id]}  onClick={e=>setName(data[id])}/>
@@ -45,8 +45,8 @@ const CommentGrid = () => {
 };
 
 const UserList = (props) => (
-    <List title="All comments" filters={<PostFilter />} {...props} exporter={false} >
-        <CommentGrid />
+    <List title="All Jobs" filters={<PostFilter />} {...props} exporter={false} >
+        <UserGrid />
     </List>
 );
 export default UserList;

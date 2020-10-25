@@ -15,14 +15,12 @@ import PersonIcon from '@material-ui/icons/Person';
 const PostFilter = (props) => (
   <Filter {...props}>
       <TextInput label="Search by ID" source="id"  />
-      <TextInput label="Search by Title" source="title"  />
+      <TextInput label="Search by Name" source="name"  />
   </Filter>
 )
 const cardStyle = {
-    width: 300,
-    height: 400,
-    margin: '0.5em',
-    display: 'inline-block',
+    width: '167vh',    
+    margin: '0.5vh',  
     verticalAlign: 'top'
 };
 
@@ -51,7 +49,7 @@ const CommentGrid = () => {
 };
 const PostList = (props) => {
   return (
-    <List title="All Posts" {...props} filters={<PostFilter />} exporter={false}>
+    <List title='KiiT TnP' {...props} filters={<PostFilter />} exporter={false}>
       <CommentGrid/>      
     </List>
   )

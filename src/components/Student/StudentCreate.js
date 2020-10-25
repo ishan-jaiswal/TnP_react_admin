@@ -3,14 +3,13 @@ import { Create, SimpleForm, TextInput, DateInput, FileField,FileInput } from 'r
 
 const StudentCreate = (props) => {
   return (
-    <Create title='Create a Job Post' {...props}>
+    <Create title='Add a Student' {...props}>
       <SimpleForm>
-        <TextInput source='title' />        
-        <TextInput multiline source='body' />
-        <DateInput label='Published Date' source='publishedAt' />
-        <DateInput label='Expiry Date' source='expiryAt' />
-        <TextInput label='URL' source='url' />
-        <FileInput source="files" label="Related files" accept="application/pdf">
+        <TextInput label='Roll No.' source='id' />
+        <TextInput label='Name' source='name' />        
+        <DateInput label='Date of Birth' source='dob' />        
+        <TextInput label='CGPA' source='cgpa' />        
+        <FileInput source="files" label="Resume" accept="application/pdf" maxSize={2000000}>
             <FileField source="src" title="title" />
         </FileInput>
       </SimpleForm>

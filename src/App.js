@@ -1,30 +1,43 @@
 import React from 'react'
 import { Admin, Resource,AppBar,Layout } from 'react-admin'
+// import {fetchUtils} from 'react-admin'
 import jsonServerProvider from 'ra-data-json-server'
 import PostList from './components/Posts/PostList'
 import PostCreate from './components/Posts/PostCreate'
 import PostEdit from './components/Posts/PostEdit'
-import Login from './components/Login'
+import authProvider from './components/authProvider'
 import UserList from './components/User/UserList'
 import ShowUser from './components/User/ShowUser'
 import ShowPost from './components/Posts/ShowPost';
 import { createMuiTheme } from '@material-ui/core/styles';
-import Dashboard from './components/User/Dashboard'
+import Dashboard from './components/User/Dashboard/Dashboard'
 import { Box,Button, Typography } from '@material-ui/core';
 import ToggleOffIcon from '@material-ui/icons/ToggleOff';
 import ToggleOnIcon from '@material-ui/icons/ToggleOn';
 import useLocalStorage from './components/useLocalStorage'
+import { createBrowserHistory as createHistory } from 'history';
+import Logout from './components/Logout';
+
+const history = createHistory();
+// const httpClient = (url, options = {}) => {
+//   if (!options.headers) {
+//       options.headers = new Headers({ Accept: 'application/json' });
+//   }
+//   const { token } = JSON.parse(localStorage.getItem('auth'));
+//   options.headers.set('Authorization', `Bearer ${token}`);
+//   return fetchUtils.fetchJson(url, options);
+// };
 const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
 
 function App() {
   // eslint-disable-next-line
-  const [permissions,setPermissions]=React.useState('student');
-  const [toggle,setToggle]=useLocalStorage('toggle',false)
-  // eslint-disable-next-line
-  const [email,setEmail]=useLocalStorage('email','');
-  React.useEffect(() => {            
-      setEmail('1705500@kiit.ac.in')
-  }, [setEmail]);
+  const [permissions,setPermissions]=useLocalStorage('permissions','');
+  const [toggle,setToggle]=useLocalStorage('toggle',false)  
+  React.useEffect(() => { 
+    return [
+      
+    ]       
+  }, [])
   const theme = createMuiTheme({
     palette: {
       type: toggle===true?'dark':'light' 
@@ -43,7 +56,7 @@ function App() {
 
 
   return (
-    <Admin layout={MyLayout} theme={theme} dashboard={permissions==='student'?Dashboard:null} authProvider={Login} dataProvider={dataProvider} >     
+    <Admin history={history} layout={MyLayout} logoutButton={Logout} theme={theme} dashboard={permissions==='student'?Dashboard:null} authProvider={authProvider} dataProvider={dataProvider}>     
         {permission=>[
           permissions==='admin'?<Resource
           options={{ label: 'Jobs' }}

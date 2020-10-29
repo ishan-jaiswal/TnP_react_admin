@@ -62,7 +62,7 @@ function App() {
       authProvider={authProvider}
       dataProvider={dataProvider}>
       {
-        (permission => [
+        permission => [
           permissions === 'admin' ? (
             <Resource
               options={{ label: 'Jobs' }}
@@ -81,8 +81,10 @@ function App() {
               show={ShowUser}
             />
           ) : null,
-        ],
-        permissions === '' ? history.push('/login') : null)
+          // permissions === '' ? history.push('/login') : null
+        ]
+         
+        
       }
     </Admin>
   );

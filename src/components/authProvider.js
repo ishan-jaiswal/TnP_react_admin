@@ -41,7 +41,7 @@ export default {
     },
     // called when the user navigates to a new location, to check for permissions / roles
     getPermissions: () => {
-        var per='student'
+        var per='admin'
         localStorage.setItem('permissions',JSON.stringify(per));
         //set details in for student if permissions is student for edit info
         if(per==='student'){

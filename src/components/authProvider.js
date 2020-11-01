@@ -41,11 +41,11 @@ export default {
     },
     // called when the user navigates to a new location, to check for permissions / roles
     getPermissions: () => {
-        var per='admin'
+        var per='student'
         localStorage.setItem('permissions',JSON.stringify(per));
         //set details in for student if permissions is student for edit info
         if(per==='student'){
-            localStorage.setItem('details',JSON.stringify({first:'Ishan',last:'Jaiswal',phone:7059078173,alt_email:'devhjaiswal@gmail.com',class_10_per:84.4,class_10_year:2015,class_12_per:92,class_12_year:2017,backlogs:0,pass_year:2021,cgpa:9.15}))
+            localStorage.setItem('details',JSON.stringify({first:'Ishan',last:'Jaiswal',phone:7059078173,alt_email:'devhjaiswal@gmail.com',address1:'13 K, Ariff Road',address2:'Ultadanga Uttam Tower Flat-3a',city:'Kolkata',state:'West Bengal',country:'India',pincode:'700067',class10_school:'Assembly of God Church School',class_10_per:84.4,class_10_year:2015,class12_school:'Assembly of God Church School',class_12_per:92,class_12_year:2017,backlogs:0,pass_year:2021,cgpa:9.15,type12:'Percent',type10:'Percent',branch:'CSE'}))
         }
         return Promise.resolve();
     },

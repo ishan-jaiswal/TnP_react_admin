@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import { forwardRef } from 'react';
 import { useLogout } from 'react-admin';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,41 +11,15 @@ const MyLogoutButton = forwardRef((props, ref) => {
   const [permissions] = useLocalStorage('permissions', '');
   const handleClick = () => {
     if (permissions === 'student') {
-      localStorage.removeItem('edit');
-      localStorage.removeItem('change');
+      // localStorage.removeItem('edit')
+      // localStorage.removeItem('change');
       localStorage.removeItem('name');
       localStorage.removeItem('details');
     }
     logout();
-  };
-  // eslint-disable-next-line
-  const [change, setChange] = useLocalStorage('change', false);
-  // eslint-disable-next-line
-  const [edit, setEdit] = useLocalStorage('edit', false);
+  }; 
   return (
-    <div>
-      {permissions === 'student' && (
-        <MenuItem
-          ref={ref}
-          onClick={e => {
-            setEdit(true);
-            setChange(false);
-          }}>
-          <Link style={{ textDecoration: 'none' }} to='/'>
-            Edit My Info
-          </Link>
-        </MenuItem>
-      )}
-      {permissions === 'student' && (
-        <MenuItem
-          ref={ref}
-          onClick={e => {
-            setChange(true);
-            setEdit(false);
-          }}>
-          Change Password
-        </MenuItem>
-      )}
+    <div>      
       <MenuItem onClick={handleClick} ref={ref}>
         <ExitIcon /> Logout
       </MenuItem>

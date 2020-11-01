@@ -76,7 +76,7 @@ export default function MyAccount() {
                   horizontal: 'left',
                 }}
                 open={open}
-                autoHideDuration={6000}
+                autoHideDuration={3000}
                 onClose={handleClose}
                 message="Password Changed"
                 action={

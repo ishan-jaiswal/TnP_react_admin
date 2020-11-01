@@ -5,6 +5,8 @@ import jsonServerProvider from 'ra-data-json-server';
 import PostList from './components/Posts/PostList';
 import PostCreate from './components/Posts/PostCreate';
 import PostEdit from './components/Posts/PostEdit';
+//import Menu from './components/Menu'
+// import { Provider } from 'react-redux'
 import authProvider from './components/authProvider';
 import UserList from './components/User/UserList';
 import ShowUser from './components/User/ShowUser';
@@ -17,6 +19,7 @@ import ToggleOnIcon from '@material-ui/icons/ToggleOn';
 import useLocalStorage from './components/useLocalStorage';
 import { createBrowserHistory as createHistory } from 'history';
 import Logout from './components/Logout';
+// import store from './redux/store'
 
 const history = createHistory();
 // const httpClient = (url, options = {}) => {
@@ -50,11 +53,10 @@ function App() {
       </Button>
     </AppBar>
   );
-  const MyLayout = props => <Layout {...props} appBar={MyAppBar} />;
-
-  return (
-    <Admin
-      history={history}
+  const MyLayout = props => <Layout {...props} appBar={MyAppBar} />;    
+  return (   
+      <Admin
+      history={history}      
       layout={MyLayout}
       logoutButton={Logout}
       theme={theme}
@@ -64,10 +66,10 @@ function App() {
       {
         permission => [
           permissions === 'admin' ? (
-            <Resource
+            <Resource            
               options={{ label: 'Jobs' }}
               name='posts'
-              list={PostList}
+              list={PostList}              
               show={ShowPost}
               create={PostCreate}
               edit={PostEdit}

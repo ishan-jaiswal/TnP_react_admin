@@ -29,16 +29,10 @@ export default function EditInfo(props) {
      // eslint-disable-next-line
     const [ email,setEmail ]=useLocalStorage('username','');
      // eslint-disable-next-line   
-    const [files,setFiles]=React.useState(null)      
-    const [hidden,setHidden]=React.useState([false])
-    const [certificate,setCertificate]=React.useState('');
-    const [certifications,setCertifications]=React.useState([])
-    const [hidden1,setHidden1]=React.useState([false]);
-    const [projects,setProjects]=React.useState([]);
-    const [project,setProject]=React.useState({name:'',description:'',url:''});
-    const [hidden2,setHidden2]=React.useState([false]);
-    const [workDetails,setWorkDetails]=React.useState([]);
-    const [workDetail,setWorkDetail]=React.useState({name:'',startedOn:new Date(),workType:''});
+    const [files,setFiles]=React.useState(null)        
+    const [certifications,setCertifications]=React.useState([''])    
+    const [projects,setProjects]=React.useState([{name:'',description:'',url:''}]);        
+    const [workDetails,setWorkDetails]=React.useState([{name:'',startedOn:'',workType:''}]);    
     const [opencv,setOpencv]=React.useState(false)            
     const [change,setChange]=useLocalStorage('change',false);
     const [open, setOpen] = React.useState(false);    
@@ -73,7 +67,42 @@ export default function EditInfo(props) {
     const handleClick = () => {
       setOpen(true);
     };
-  
+    const handleCertificateListChange=(e,i)=>{
+      var cert=certifications.slice()
+      cert[i]=e.target.value
+      setCertifications(cert)
+    }
+    const handleProjectsNameChange=(e,i)=>{
+        var pro=projects.slice()
+        pro[i].name=e.target.value
+        setProjects(pro)
+    }
+    const handleProjectsDescriptionChange=(e,i)=>{
+      var pro=projects.slice()
+      pro[i].description=e.target.value
+      setProjects(pro)
+    }
+    const handleProjectsUrlChange=(e,i)=>{
+      var pro=projects.slice()
+      pro[i].url=e.target.value
+      setProjects(pro)
+    }
+    const handleWorkNameChange=(e,i)=>{
+      var work=workDetails.slice()
+      work[i].name=e.target.value
+      setWorkDetails(work)
+    }
+    const handleWorkDateChange=(e,i)=>{
+      var work=workDetails.slice()
+      work[i].startedOn=e.target.value
+      setWorkDetails(work)
+      console.log(workDetails);
+    }
+    const handleWorkTypeChange=(e,i)=>{
+      var work=workDetails.slice()
+      work[i].workType=e.target.value
+      setWorkDetails(work)
+    }
     const handleClose = (event, reason) => {
       if (reason === 'clickaway') {
         return;
@@ -203,54 +232,55 @@ export default function EditInfo(props) {
                 </Grid>
                 </Grid>
                 <Grid container justify='flex-start' alignItems='center' direction='column'>                  
-                      {hidden.map((item,i)=>{                        
+                      {certifications.map((item,i)=>{                        
                         return[
                           <Grid item xs={12}>
                             <form className={classes.root} autoComplete="on">                                                                  
-                              <TextField label='Certification' style={{width:'30vh'}} variant='outlined' id='certification' error={certificate.length===0?true:false}  onChange={e=>{setCertificate(e.target.value)}} />
-                              <Button variant='contained' color='primary' onClick={()=>setCertifications([...certifications,certificate])}>Add</Button>
-                              {hidden.length-1===i&&(<Button onClick={()=>{setHidden([...hidden,false]);setCertificate('')}}><AddCircleIcon /></Button>                  )}
+                              <TextField label='Certification' style={{width:'30vh'}} variant='outlined' id='certification' error={certifications[i].length===0?true:false} value={certifications[i]}  onChange={e=>{handleCertificateListChange(e,i)}} />
+                              {/* <Button variant='contained' color='primary' onClick={()=>setCertifications([...certifications,''])}>Add</Button> */}
+                              {certifications.length-1===i&&(<Button onClick={()=>{setCertifications([...certifications,''])}}><AddCircleIcon /></Button>)}
                             </form>
                           </Grid>
                         ]
                       })}                      
                 </Grid>                         
-                <Typography variant='h5' style={{color:'darkgray',paddingRight:'81vh'}}>Project Details</Typography>           
+                <Typography variant='h5' style={{color:'darkgray',paddingRight:'72vh'}}>Project Details</Typography>           
                 <Grid container justify='flex-start' alignItems='center' direction='column'>                
-                  {hidden1.map((item,i)=>{
+                  {projects.map((item,i)=>{
                     return[                      
                           <Grid item>
                             <form className={classes.root} autoComplete="on">
-                              <TextField variant='outlined' label='Project Name' color='primary' error={project.name.length<=2?true:false} onChange={e=>setProject({...project,name:e.target.value})} />
-                              <TextField variant='outlined' label='Project Description' style={{width:'30vh'}} color='primary' error={project.description.length<=10?true:false} onChange={e=>setProject({...project,description:e.target.value})} />
-                              <TextField variant='outlined' label='Project GitHub URL' color='primary' error={ValidateUrl(project.url)} onChange={e=>setProject({...project,url:e.target.value})} />
-                              <Button variant='contained' color='primary' onClick={()=>setProjects([...projects,project])}>Add</Button>                                                        
-                              {hidden1.length-1===i&&(<Button onClick={()=>{setHidden1([...hidden1,false]);setProject({name:'',description:'',url:''})}}><AddCircleIcon /></Button>                                                             )}
+                              <TextField variant='outlined' label='Project Name' color='primary' error={projects[i].name.length<=2?true:false} value={projects[i].name} onChange={e=>handleProjectsNameChange(e,i)} />
+                              <TextField variant='outlined' label='Project Description' style={{width:'30vh'}} color='primary' value={projects[i].description} error={projects[i].description.length<=10?true:false} onChange={e=>handleProjectsDescriptionChange(e,i)} />
+                              <TextField variant='outlined' label='Project GitHub URL' color='primary' value={projects[i].url} error={ValidateUrl(projects[i].url)} onChange={e=>handleProjectsUrlChange(e,i)} />
+                              {/* <Button variant='contained' color='primary' onClick={()=>setProjects([...projects,project])}>Add</Button>*/}
+                              {projects.length-1===i&&(<Button onClick={()=>{setProjects([...projects,{name:'',description:'',url:''}])}}><AddCircleIcon /></Button>)}
                             </form>
                           </Grid>
                     ]                    
                   })}                         
                   </Grid>
-                  <Typography variant='h5' style={{paddingLeft:'0vh',color:'darkgray',paddingRight:'65vh'}}>Work Experience</Typography>           
+                  <Typography variant='h5' style={{color:'darkgray',paddingRight:'53vh'}}>Work Experience</Typography>           
                   <Grid container justify='flex-start' alignItems='center' direction='column'>
-                  {hidden2.map((item,i)=>{
+                  {workDetails.map((item,i)=>{
                     return[
                       <Grid item > 
                           <form className={classes.root} autoComplete="on">
-                            <TextField variant='outlined' label='Company Name' color='primary' error={workDetail.name.length<=2?true:false} onChange={e=>setWorkDetail({...workDetail,name:e.target.value})} />                            
+                            <TextField variant='outlined' label='Company Name' color='primary' value={workDetails[i].name} error={workDetails[i].name.length<=2?true:false} onChange={e=>handleWorkNameChange(e,i)} />                            
                             <TextField
                                 id="date"
                                 label="Started On"
                                 type="date"
-                                // error={workDetail.startedOn===new Date()?true:false}
-                                error
+                                error={workDetails[i].startedOn.length===0?true:false}
+                                value={workDetails[i].startedOn}
+                                onChange={e=>handleWorkDateChange(e,i)}
                                 InputLabelProps={{
                                   shrink: true,
                                 }}
                               />
-                            <TextField variant='outlined' label='Work Type' style={{width:'20vh'}} color='primary' error={workDetail.workType<=2?true:false} onChange={e=>setWorkDetail({...workDetail,workType:e.target.value})} />
-                            <Button variant='contained' color='primary' onClick={()=>setWorkDetails([...workDetails,workDetail])}>Add</Button>
-                            {hidden2.length-1===i&&(<Button onClick={()=>{setHidden2([...hidden2,false]);setWorkDetail({name:'',startedOn:new Date(),workType:''})}}><AddCircleIcon /></Button>                                )}
+                            <TextField variant='outlined' label='Work Type' style={{width:'20vh'}} color='primary' value={workDetails[i].workType} error={workDetails[i].workType.length<=2?true:false} onChange={e=>handleWorkTypeChange(e,i)} />
+                            {/* <Button variant='contained' color='primary' onClick={()=>setWorkDetails([...workDetails,workDetail])}>Add</Button> */}
+                            {workDetails.length-1===i&&(<Button onClick={()=>{setWorkDetails([...workDetails,{name:'',startedOn:'',workType:''}])}}><AddCircleIcon /></Button>                                )}
                           </form>
                       </Grid>
                     ]
